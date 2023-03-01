@@ -7,8 +7,7 @@ public class AmmoOnScene : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _Ammo_List;
     public List<GameObject> AmmoList{get=>_Ammo_List;}
-
-    private Ammo _Current_Ammo;
+    
     public void AddAmmo(GameObject _ammo)
     {
         _Ammo_List.Add(_ammo);

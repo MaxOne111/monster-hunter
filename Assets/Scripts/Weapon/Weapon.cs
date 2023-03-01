@@ -1,15 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewWeapon", menuName = "Weapon/NewWeapon")]
-public class Weapon : ScriptableObject
+public class Weapon : MonoBehaviour, IUpgradeable
 {
-    [SerializeField] private float _Damage;
-    [SerializeField] private float _Fire_Rate;
-    [SerializeField] private GameObject _Bullet_Prefab;
-    public float Damage{get=>_Damage;}
-    public float FireRate{get=>_Fire_Rate;}
-    public GameObject BulletPrefab{get=>_Bullet_Prefab;}
+    [field: SerializeField] public GameObject Ammo { get; private set; }
+    [field: SerializeField] public List<WeaponConfig> Upgrades { get; private set; }
+    public int Level { get; private set; }
+    public float Damage { get; private set; }
+    public int UpgradePrice { get; private set; }
+    public GameObject BulletPrefab { get; private set; }
+    public Sprite Icon { get; private set; }
     
+    public void Stats()
+    {
+        Level = Upgrades[0].Level;
+        Damage = Upgrades[0].Damage;
+        UpgradePrice = Upgrades[0].UpgradePrice;
+        BulletPrefab = Upgrades[0].BulletPrefab;
+        Icon = Upgrades[0].Icon;
+    }
+    
+    public void Upgrade()
+    {
+        Upgrades.Remove(Upgrades[0]);
+        Stats();
+    }
+
+    public void Buy()
+    {
+        if (PlayerData.SpendCoins(UpgradePrice) && Upgrades.Count > 1)
+        {
+            Upgrade();
+            Debug.Log("Success");
+        }
+        else
+        {
+            Debug.Log("Failed");
+        }
+    }
 }

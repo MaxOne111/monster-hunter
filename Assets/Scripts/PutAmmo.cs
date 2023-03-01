@@ -7,17 +7,13 @@ using Zenject;
 
 public class PutAmmo : MonoBehaviour
 {
-    [SerializeField] private GameObject _Ammo;
-    
     [SerializeField] private Tilemap _Walkable;
     
     private AmmoOnScene _Ammo_On_Scene;
-
-    private Camera _Camera;
-
     private PlayerShoot _Player_Shoot;
 
-    private float _Next_Ammo;
+    private Camera _Camera;
+    
 
     [Inject]
     private void Construct(AmmoOnScene _ammo)
@@ -29,7 +25,6 @@ public class PutAmmo : MonoBehaviour
     {
         _Player_Shoot = GetComponent<PlayerShoot>();
         _Camera = Camera.main;
-
     }
 
     private void Update()
@@ -53,15 +48,10 @@ public class PutAmmo : MonoBehaviour
             {
                 if (_hit.collider.CompareTag("Walkable"))
                 {
-                    if (Time.time > _Next_Ammo)
-                    {
-                        _Next_Ammo = Time.time + 1f / _Player_Shoot.PlayerWeapon.FireRate;
-                        GameObject _ammo = Instantiate(_Ammo, _position, Quaternion.identity);
-                        _Ammo_On_Scene.AddAmmo(_ammo);
-                        _Ammo_On_Scene.NearestAmmo(gameObject);
-                        GameEvents.PutAmmo();
-                    }
-                    
+                    GameObject _ammo = Instantiate(_Player_Shoot.CurrentWeapon.Ammo, _position, Quaternion.identity);
+                    _Ammo_On_Scene.AddAmmo(_ammo);
+                    _Ammo_On_Scene.NearestAmmo(gameObject);
+                    GameEvents.PutAmmo();
                 }
             }
         }

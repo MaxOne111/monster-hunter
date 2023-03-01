@@ -5,19 +5,20 @@ using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(PlayerWeapon))]
 public class PlayerShoot : MonoBehaviour, IPlayerAttackable
 {
-    [SerializeField] private Weapon _Weapon;
+   [field: SerializeField] public Weapon CurrentWeapon { get; set; }
+    private PlayerWeapon _Player_Weapon;
     [Header("Bullet Explosion Effect")]
     [SerializeField] private GameObject _Particle_Object;
     [Space]
     [SerializeField] private float _Bullet_Speed;
-
     private GameUI _Game_UI;
 
     private GameObject _Explosion_Effect;
     
-    private float _Damage;
+    private float _Bonus_Damage;
 
     private int _Attack_Count;
     
@@ -32,8 +33,6 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
     [field: SerializeField] public int StartComboAttack { get; set; }
     //
 
-    public Weapon PlayerWeapon{get=>_Weapon;}
-
     [Inject]
     private void Construct(MonstersPool _monsters_Pool, GameUI _ui)
     {
@@ -42,9 +41,15 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
     }
     private void Awake()
     {
+        _Player_Weapon = GetComponent<PlayerWeapon>();
         GameEvents._Take_Ammo += Attack;
-        _Damage = _Weapon.Damage;
+        
+        CurrentWeapon = _Player_Weapon.Weapon[0];
+        
+        CurrentWeapon.Stats();
+        
         _Explosion_Effect = _Particle_Object;
+        
     }
     
     public void Attack()
@@ -57,6 +62,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
 
     public void Combo()
     {
+        _Attack_Count++;
         if(!_Is_Combo_Start)
             StartCoroutine(ComboCoroutine());
     }
@@ -67,20 +73,20 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
         Vector3 _bullet_direction = _Monsters_Pool.CurrentMonster.transform.position - transform.position;
         float _angle_Rotate = Mathf.Atan(_bullet_direction.y/_bullet_direction.x) * Mathf.Rad2Deg;
         Quaternion _start_Rotate = Quaternion.Euler(0,0,_angle_Rotate + 90);
-        
-        GameObject _bullet = Instantiate(_Weapon.BulletPrefab, transform.position, _start_Rotate);
-        
-        while (_bullet.transform.position != _Monsters_Pool.CurrentMonster.transform.position)
+
+        GameObject _bullet = Instantiate(CurrentWeapon.BulletPrefab, transform.position, _start_Rotate);
+        while (_Monsters_Pool.CurrentMonster && _bullet.transform.position != _Monsters_Pool.CurrentMonster.transform.position)
         {
             _bullet.transform.position = Vector3.MoveTowards(_bullet.transform.position, _Monsters_Pool.CurrentMonster.transform.position,
                 _Bullet_Speed * Time.deltaTime);
             yield return null;
         }
-        if (_Monsters_Pool.CurrentMonster.TryGetComponent(out Monsters _monster))
+        if (_Monsters_Pool.CurrentMonster && _Monsters_Pool.CurrentMonster.TryGetComponent(out Monster _monster))
         {
-            _Attack_Count++;
             Combo();
-            _monster.ApplyDamage(_Damage);
+            _monster.ApplyDamage(CurrentWeapon.Damage + _Bonus_Damage);
+
+            _Game_UI.CurrentCombo(_Attack_Count);
         }
         Instantiate(_Explosion_Effect, _bullet.transform.position, Quaternion.identity);
         Destroy(_bullet);
@@ -97,27 +103,26 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
             _current_Time--;
             if (_Attack_Count >= StartComboAttack)
             {
-                StartCombo(_current_Time);
+                StartCombo();
             }
             yield return new WaitForSeconds(1);
         }
         FinishCombo();
     }
 
-    private void StartCombo(float _current_Time)
+    private void StartCombo()
     {
-        _Damage = _Weapon.Damage * 2;
+        _Bonus_Damage = CurrentWeapon.Damage;
         _Explosion_Effect = _Particle_Object_Combo;
-        _Game_UI.ComboTimeSetActive(true);
-        _Game_UI.CurrentComboTime(ResetTime, _current_Time);
+        _Game_UI.ComboTextSetActive(true);
     }
 
     private void FinishCombo()
     {
         _Attack_Count = 0;
-        _Damage = _Weapon.Damage;
+        _Bonus_Damage = 0;
         _Explosion_Effect = _Particle_Object;
-        _Game_UI.ComboTimeSetActive(false);
+        _Game_UI.ComboTextSetActive(false);
         _Is_Combo_Start = false;
     }
     
@@ -132,3 +137,4 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
     }
     
 }
+

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6045206652493284506}
   - component: {fileID: 5134908274049061828}
-  - component: {fileID: 8711024396331534619}
+  - component: {fileID: 1184504647074118142}
   m_Layer: 0
   m_Name: Monster_Boss
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8711024396331534619
+--- !u!114 &1184504647074118142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,8 +94,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7041849630953023811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16378b933125dcc448ffee5cda6a0d09, type: 3}
+  m_Script: {fileID: 11500000, guid: b61fa60e93d80da419ab3e28c512b9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Max_Health: 40
+  _Max_Health: 50
   _Regeneration_Speed: 40
+  _Money_Reward: 20
+  _Pet: {fileID: 5081515007156105504, guid: ff09a519f4186be4096ef905f79ee92b, type: 3}
+  _Drop_Chance: 50

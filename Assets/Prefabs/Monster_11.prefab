@@ -97,5 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16378b933125dcc448ffee5cda6a0d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Max_Health: 30
+  _Max_Health: 10
   _Regeneration_Speed: 15
+  _Money_Reward: 12
