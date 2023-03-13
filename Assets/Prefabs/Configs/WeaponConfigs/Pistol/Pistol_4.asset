@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8d03ca719e0154b8d743468753d6f0, type: 3}
+  m_Name: Pistol_4
+  m_EditorClassIdentifier: 
+  _Level: 4
+  _Damage: 6
+  _Upgrade_Price: 1200
+  _Bullet_Prefab: {fileID: 869018465420581129, guid: 03f10d480bc760e4ea842e50d6cef208, type: 3}
+  _Icon: {fileID: 21300000, guid: a012f623a39198a48a1f7d174aff367c, type: 3}

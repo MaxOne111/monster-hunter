@@ -22,6 +22,7 @@ public abstract class Monster : MonoBehaviour
     
     private void Awake()
     {
+        GameEvents._Start_Level += DestroyMonster;
         CurrentHealth = _Max_Health;
     }
 
@@ -68,6 +69,11 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
+    private void DestroyMonster()
+    {
+        Destroy(gameObject);
+    }
+
     private void Death()
     {
         CurrentHealth = 0;
@@ -79,5 +85,6 @@ public abstract class Monster : MonoBehaviour
     private void OnDestroy()
     {
         Reward();
+        GameEvents._Start_Level -= DestroyMonster;
     }
 }
