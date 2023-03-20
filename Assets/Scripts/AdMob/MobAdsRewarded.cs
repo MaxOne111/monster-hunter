@@ -15,7 +15,6 @@ public class MobAdsRewarded : MonoBehaviour
     [SerializeField] private Button _Ad_Button;
     [SerializeField] private Button _Gems_Button;
     [SerializeField] private GameObject _Reward_Panel;
-    [SerializeField] private GameObject _text;
     private Action _Rew;
     private AdReward _Reward;
     private RewardedAd _Rewarded_Ad;
@@ -115,7 +114,6 @@ public class MobAdsRewarded : MonoBehaviour
             Reward();
             NewRewardedAd();
             HideButton();
-            _text.SetActive(true);
         };
         // Raised when the ad failed to open full screen content.
         ad.OnAdFullScreenContentFailed += (AdError error) =>
@@ -125,7 +123,6 @@ public class MobAdsRewarded : MonoBehaviour
         };
         ad.OnAdPaid += (AdValue adValue) =>
         {
-            _text.SetActive(true);
         };
     }
 }
