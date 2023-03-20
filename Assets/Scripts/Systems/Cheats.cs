@@ -18,7 +18,7 @@ public class Cheats : MonoBehaviour
     
     public void GetMoney()
     {
-        PlayerData.Coins += 5000;
+        PlayerData.RecieveCoins(5000);
         _UI.CurrentCoins();
     }
     

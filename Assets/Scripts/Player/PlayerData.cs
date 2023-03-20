@@ -6,21 +6,54 @@ using UnityEngine;
 [Serializable]
 public static class PlayerData
 {
-    public static float Coins { get;  set; }
-    public static int Gems { get; private set; }
     private static List<Pet> _Pets;
     private static List<Weapon> _Weapons;
+    public static float Coins
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat("Coins");
+        }
+        private set
+        {
+            if (value >= 0)
+            {
+                PlayerPrefs.SetFloat("Coins", value);
+            }
+        }
+    }
+
+    public static int Gems
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("Gems");
+        }
+        private set
+        {
+            if (value >= 0)
+            {
+                PlayerPrefs.SetInt("Gems", value);
+            }
+        }
+    }
     
     public static void RecieveCoins(int _coins)
     {
-        if(_coins >= 0)
+        if (_coins >= 0)
+        {
             Coins += _coins;
+        }
+            
     }
 
     public static void RecieveGems(int _gems)
     {
-        if(_gems >= 0)
+        if (_gems >= 0)
+        {
             Gems += _gems;
+        }
+            
     }
 
     public static bool SpendCoins(int _price)
@@ -36,11 +69,16 @@ public static class PlayerData
         }
     }
     
-    public static void SpendGems(int _price)
+    public static bool SpendGems(int _price)
     {
         if (Gems - _price >= 0)
         {
             Gems -= _price;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61fa60e93d80da419ab3e28c512b9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Max_Health: 10
+  _Max_Health: 50
   _Regeneration_Speed: 40
   _Money_Reward: 20
-  _Pet: {fileID: 3378758307864794117, guid: 6139578a028026542a4a9767ade90b19, type: 3}
+  _Pet: {fileID: 0}
   _Drop_Chance: 0

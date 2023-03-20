@@ -99,4 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Max_Health: 10
   _Regeneration_Speed: 5
-  _Money_Reward: 2
+  _Money_Reward: 3

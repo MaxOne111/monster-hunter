@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6d6af1e2a5bf142899263897274094, type: 3}
+  m_Name: Pool_lvl_3
+  m_EditorClassIdentifier: 
+  <Monsters>k__BackingField:
+  - {fileID: 7007869984670964802, guid: 4cb6f60350ce20e45b5020b5c7694190, type: 3}
+  - {fileID: -4819655289381747583, guid: 93217287bf6a874429a0fd479f1679ee, type: 3}
+  - {fileID: 6836905251333886845, guid: a05f74e684cb71948b9148f16506d622, type: 3}
+  <Boss>k__BackingField: {fileID: 7899201164691593733, guid: 20ba44ad286d1be45857a5c2ff3c8801, type: 3}
+  <HealthRatio>k__BackingField: 1.1

@@ -33,7 +33,10 @@ public class BossMonster : Monster
 
     private void CreatePet()
     {
-        _Di_Container.InstantiatePrefab(_Pet.gameObject, transform.position, Quaternion.identity,null);
-        _Player_Pets.AddPet(_Pet);
+        if (_Pet)
+        {
+            _Di_Container.InstantiatePrefab(_Pet.gameObject, transform.position, Quaternion.identity,null);
+            _Player_Pets.AddPet(_Pet);
+        }
     }
 }

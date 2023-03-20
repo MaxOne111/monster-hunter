@@ -7,8 +7,6 @@ using Zenject;
 
 public class PutAmmo : MonoBehaviour
 {
-    [SerializeField] private Tilemap _Walkable;
-    
     private AmmoOnScene _Ammo_On_Scene;
     private PlayerShoot _Player_Shoot;
 
@@ -39,10 +37,6 @@ public class PutAmmo : MonoBehaviour
         {
             Vector2 _ray = _Camera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D _hit = Physics2D.Raycast(_ray, Vector2.zero);
-
-            // Vector3Int _cell = _Walkable.WorldToCell(_ray);
-            
-            //Vector3 _position = _Walkable.GetCellCenterLocal(_cell);
 
             if (_hit.collider)
             {

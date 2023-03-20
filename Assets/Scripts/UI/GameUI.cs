@@ -17,9 +17,10 @@ public class GameUI : MonoBehaviour
     [SerializeField] private GameObject _New_Game_Panel;
     [SerializeField] private TextMeshProUGUI _Level_Number;
 
-    private void Start()
+    private void OnEnable()
     {
         CurrentCoins();
+        CurrentGems();
     }
 
     public void CurrentHealth(float _max_Health, float _current_Health)

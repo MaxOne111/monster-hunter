@@ -52,7 +52,9 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Reward()
     {
         PlayerData.RecieveCoins(_Money_Reward);
+        PlayerData.RecieveGems(3);
         _Game_UI.CurrentCoins();
+        _Game_UI.CurrentGems();
     }
 
     public void ApplyDamage(float _damage)
