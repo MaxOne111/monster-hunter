@@ -3,41 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour, IUpgradeable
+public abstract class Weapon : ScriptableObject
 {
-    [field: SerializeField] public GameObject Ammo { get; private set; }
-    [field: SerializeField] public List<WeaponConfig> Upgrades { get; private set; }
-    public int Level { get; private set; }
-    public float Damage { get; private set; }
-    public int UpgradePrice { get; private set; }
-    public GameObject BulletPrefab { get; private set; }
-    public Sprite Icon { get; private set; }
+    [field: SerializeField] public GameObject Ammo { get; protected set; }
+    [field: SerializeField] public List<WeaponConfig> WeaponLevels { get; private set; }
+    public WeaponConfig CurrentWeaponLevel { get=>WeaponLevels[0]; }
     
-    public void Stats()
-    {
-        Level = Upgrades[0].Level;
-        Damage = Upgrades[0].Damage;
-        UpgradePrice = Upgrades[0].UpgradePrice;
-        BulletPrefab = Upgrades[0].BulletPrefab;
-        Icon = Upgrades[0].Icon;
-    }
-    
-    public void Upgrade()
-    {
-        Upgrades.Remove(Upgrades[0]);
-        Stats();
-    }
+    public int Level { get=>CurrentWeaponLevel.Level;}
+    public float Damage { get=>CurrentWeaponLevel.Damage;}
+    public Sprite Icon { get=>CurrentWeaponLevel.Icon;}
 
-    public void Buy()
-    {
-        if (PlayerData.SpendCoins(UpgradePrice) && Upgrades.Count > 1)
-        {
-            Upgrade();
-            Debug.Log("Success");
-        }
-        else
-        {
-            Debug.Log("Failed");
-        }
-    }
+    public abstract IEnumerator WeaponAttack(GameObject _target, PlayerShoot _player);
+    public abstract void WeaponUIAccept(IWeaponUIVisitor _visitor);
+    
 }

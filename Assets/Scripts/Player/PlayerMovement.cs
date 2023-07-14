@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     [SerializeField] private LayerMask _Obstacle_Layer;
 
     public bool IsMove { get; private set; }
-    private bool _move_Back;
-    private bool _move_Up;
 
     [Inject]
     private void Construct(AmmoOnScene _ammo)
@@ -36,19 +34,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
 
         
     }
-    
-    private void OnDrawGizmos()
-    {
-        if (_Path != null)
-        {
-            foreach (var _item in _Path)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(new Vector3(_item.x, _item.y),0.2f);
-            }
-        }
-    }
-    
+
     public void Move()
     {
         if(!IsMove)
@@ -58,6 +44,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     private IEnumerator Movement()
     {
         IsMove = true;
+        _Animation.StartMove();
         while (_Ammo_On_Scene.AmmoList.Count > 0)
         {
             _Path = GetPath(_Ammo_On_Scene.AmmoList[0].transform.position);
@@ -67,10 +54,27 @@ public class PlayerMovement : MonoBehaviour, IMoveable
                 Vector3 _horizontal = new Vector2(_Path[_Path.Count-1].x, transform.position.y);
                 if (transform.position != _horizontal)
                 {
+                    if (transform.position.x < _horizontal.x)
+                    {
+                        _Animation.MoveRight(_horizontal.x);
+                    }
+                    else
+                    {
+                        _Animation.MoveLeft(_horizontal.x);
+                    }
+                    
                     transform.position = Vector2.MoveTowards(transform.position, _horizontal, _Speed * Time.deltaTime);
                 }
                 else
                 {
+                    if (transform.position.y < _vertical.y)
+                    {
+                       _Animation.MoveUp(_vertical.y);
+                    }
+                    else
+                    {
+                        _Animation.MoveDown(_vertical.y);
+                    }
                     transform.position = Vector2.MoveTowards(transform.position, _vertical, _Speed * Time.deltaTime);
                 }
             }
@@ -84,6 +88,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
             yield return null;
         }
         IsMove = false;
+        _Animation.StopMove();
     }
 
    private List<Vector2> GetPath(Vector2 _target)

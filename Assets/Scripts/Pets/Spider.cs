@@ -6,7 +6,8 @@ using Zenject;
 
 public class Spider : Pet
 {
-    [SerializeField] private float _Bonus_Increase = 1.5f;
+    [Header("Damage increase (in %)")]
+    [SerializeField] private float _Bonus_Increase = 50;
 
     protected override void StartDescription()
     {

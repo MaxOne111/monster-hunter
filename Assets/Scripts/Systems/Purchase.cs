@@ -8,4 +8,9 @@ public class Purchase : MonoBehaviour
     {
         _item.Buy();
     }
+
+    public void Upgrade(IUpgradeable _item)
+    {
+        _item.Upgrade();
+    }
 }

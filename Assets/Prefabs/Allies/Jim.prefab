@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ccb19b231bf9b42964fe30399e67fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Config: {fileID: 11400000, guid: 6d2a07103afb8de4e9a9084ee04c1c4d, type: 2}
+  _Current_Config: {fileID: 11400000, guid: 6d2a07103afb8de4e9a9084ee04c1c4d, type: 2}
+  _Start_Config: {fileID: 11400000, guid: f8fe2555e227bd64e9a68d5db38f60ce, type: 2}
   _Bullet_Prefab: {fileID: 869018465420581129, guid: 03f10d480bc760e4ea842e50d6cef208, type: 3}
   _Bullet_Speed: 12.5
   _Explosion_Effect: {fileID: 4946009295131255036, guid: e2a9650881ba6e947a7a4c948e11b773, type: 3}

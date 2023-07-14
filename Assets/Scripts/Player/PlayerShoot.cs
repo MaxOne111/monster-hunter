@@ -6,31 +6,22 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(PlayerWeapon))]
-public class PlayerShoot : MonoBehaviour, IPlayerAttackable
+public class PlayerShoot : MonoBehaviour, IAttackable
 {
-   [field: SerializeField] public Weapon CurrentWeapon { get; set; }
     private PlayerWeapon _Player_Weapon;
-    [Header("Bullet Explosion Effect")]
-    [SerializeField] private GameObject _Particle_Object;
-    [Space]
-    [SerializeField] private float _Bullet_Speed;
     private GameUI _Game_UI;
+    private MonstersPool _Monsters_Pool;
 
-    private GameObject _Explosion_Effect;
-    
     private float _Combo_Damage;
 
     private int _Attack_Count;
-    
-    private MonstersPool _Monsters_Pool;
-    
+
     private bool _Is_Combo_Start;
     
     public float IncreaseDamage { get; set; }
     
     //Combo settings
-    [Header("Combo Settings")]
-    [SerializeField] private GameObject _Particle_Object_Combo;
+   // [Header("Combo Settings")]
     [field: SerializeField] public float ResetTime { get; set; }
     [field: SerializeField] public int StartComboAttack { get; set; }
     //
@@ -45,62 +36,24 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
     {
         _Player_Weapon = GetComponent<PlayerWeapon>();
         GameEvents._Take_Ammo += Attack;
-        
-        CurrentWeapon = _Player_Weapon.Weapon[0];
-        
-        CurrentWeapon.Stats();
-        
-        _Explosion_Effect = _Particle_Object;
+        //CurrentWeapon.Stats();
     }
-    
+
     public void Attack()
     {
-        if (_Monsters_Pool.CurrentMonster)
+        if (_Monsters_Pool.CurrentTarget)
         {
-            StartCoroutine(Shoot());
+            StartCoroutine(_Player_Weapon.CurrentWeapon.WeaponAttack(_Monsters_Pool.CurrentTarget, this));
         }
     }
 
-    public void Combo()
-    {
-        _Attack_Count++;
-        if(!_Is_Combo_Start)
-            StartCoroutine(ComboCoroutine());
-    }
-
-
-    private IEnumerator Shoot()
-    {
-        Vector3 _bullet_direction = _Monsters_Pool.CurrentMonster.transform.position - transform.position;
-        float _angle_Rotate = Mathf.Atan(_bullet_direction.y/_bullet_direction.x) * Mathf.Rad2Deg;
-        Quaternion _start_Rotate = Quaternion.Euler(0,0,_angle_Rotate + 90);
-
-        GameObject _bullet = Instantiate(CurrentWeapon.BulletPrefab, transform.position, _start_Rotate);
-        while (_Monsters_Pool.CurrentMonster && _bullet.transform.position != _Monsters_Pool.CurrentMonster.transform.position)
-        {
-            _bullet.transform.position = Vector3.MoveTowards(_bullet.transform.position, _Monsters_Pool.CurrentMonster.transform.position,
-                _Bullet_Speed * Time.deltaTime);
-            yield return null;
-        }
-
-        float _final_Damage;
-        if (IncreaseDamage > 1)
-            _final_Damage = (CurrentWeapon.Damage + _Combo_Damage) * IncreaseDamage;
-        else
-        {
-            _final_Damage = CurrentWeapon.Damage + _Combo_Damage;
-        }
-        
-        if (_Monsters_Pool.CurrentMonster && _Monsters_Pool.CurrentMonster.TryGetComponent(out Monster _monster))
-        {
-            Combo();
-            _monster.ApplyDamage(_final_Damage);
-
-            _Game_UI.CurrentCombo(_Attack_Count);
-        }
-        Instantiate(_Explosion_Effect, _bullet.transform.position, Quaternion.identity);
-        Destroy(_bullet);
-    }
+    // public void Combo()
+    // {
+    //     _Attack_Count++;
+    //     if(!_Is_Combo_Start)
+    //         StartCoroutine(ComboCoroutine());
+    // }
+    
 
     private IEnumerator ComboCoroutine()
     {
@@ -122,8 +75,8 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
 
     private void StartCombo()
     {
-        _Combo_Damage = CurrentWeapon.Damage;
-        _Explosion_Effect = _Particle_Object_Combo;
+        _Combo_Damage = _Player_Weapon.CurrentWeapon.Damage;
+        //_Explosion_Effect = _Particle_Object_Combo;
         _Game_UI.ComboTextSetActive(true);
     }
 
@@ -131,7 +84,7 @@ public class PlayerShoot : MonoBehaviour, IPlayerAttackable
     {
         _Attack_Count = 0;
         _Combo_Damage = 0;
-        _Explosion_Effect = _Particle_Object;
+        //_Explosion_Effect = _Particle_Object;
         _Game_UI.ComboTextSetActive(false);
         _Is_Combo_Start = false;
     }

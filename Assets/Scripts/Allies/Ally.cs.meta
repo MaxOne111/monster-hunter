@@ -3,7 +3,11 @@ guid: f7ccb19b231bf9b42964fe30399e67fb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _Current_Config: {instanceID: 0}
+  - _Start_Config: {instanceID: 0}
+  - _Bullet_Prefab: {instanceID: 0}
+  - _Explosion_Effect: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

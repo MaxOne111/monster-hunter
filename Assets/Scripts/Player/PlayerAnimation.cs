@@ -14,28 +14,55 @@ public class PlayerAnimation : MonoBehaviour
         _Renderer = GetComponent<SpriteRenderer>();
     }
     
-    
 
-    public void MoveAnimation(bool _is_Move, bool _move_Back, bool _move_Up)
+    public void StartMove()
     {
-        _Animator.SetBool("IsMove", _is_Move);
-        _Animator.SetBool("MoveBack", _move_Back);
-        _Animator.SetBool("MoveUp", _move_Up);
+        _Animator.SetBool("IsMove", true);
     }
 
-    public void ChangeDirection(float _end_Pos)
+    public void StopMove()
     {
-        if (transform.position.x > _end_Pos)
-            _Renderer.flipX = true;
-        else
-        {
-            _Renderer.flipX = false;
-        }
+        _Animator.SetBool("IsMove", false);
+        
+        _Animator.SetBool("MoveBack", false);
+        _Animator.SetBool("MoveUp", false);
+        _Animator.SetBool("MoveDown", false);
+    }
 
-        if (transform.position.y > _end_Pos)
-        {
-            
-        }
+    public void MoveRight(float _end_Pos)
+    {
+        _Renderer.flipX = true;
+        _Animator.SetBool("MoveBack", true);
+        
+        _Animator.SetBool("MoveUp", false);
+        _Animator.SetBool("MoveDown", false);
+        
+        
+    }
+    
+    public void MoveLeft(float _end_Pos)
+    {
+        _Renderer.flipX = false;
+        _Animator.SetBool("MoveBack", true);
+        
+        _Animator.SetBool("MoveUp", false);
+        _Animator.SetBool("MoveDown", false);
+    }
+    
+    public void MoveUp(float _end_Pos)
+    {
+        _Animator.SetBool("MoveUp", true);
+        
+        _Animator.SetBool("MoveBack", false);
+        _Animator.SetBool("MoveDown", false);
+    }
+    
+    public void MoveDown(float _end_Pos)
+    {
+        _Animator.SetBool("MoveDown", true);
+        
+        _Animator.SetBool("MoveBack", false);
+        _Animator.SetBool("MoveUp", false);
     }
     
 }

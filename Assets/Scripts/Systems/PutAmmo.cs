@@ -8,21 +8,23 @@ using Zenject;
 public class PutAmmo : MonoBehaviour
 {
     private AmmoOnScene _Ammo_On_Scene;
-    private PlayerShoot _Player_Shoot;
+    private PlayerWeapon _Player_Weapon;
+    private Transform _Player;
 
     private Camera _Camera;
     
 
     [Inject]
-    private void Construct(AmmoOnScene _ammo, PlayerShoot _player_Shoot)
+    private void Construct(AmmoOnScene _ammo, PlayerWeapon _player_Weapon)
     {
         _Ammo_On_Scene = _ammo;
-        _Player_Shoot = _player_Shoot;
+        _Player_Weapon = _player_Weapon;
     }
 
     private void Awake()
     {
         _Camera = Camera.main;
+        _Player = _Player_Weapon.transform;
     }
 
     private void Update()
@@ -40,11 +42,11 @@ public class PutAmmo : MonoBehaviour
 
             if (_hit.collider)
             {
-                if (_hit.collider.CompareTag("Walkable") && _hit.collider.transform.position != _Player_Shoot.transform.position)
+                if (_hit.collider.CompareTag("Walkable") && _hit.collider.transform.position != _Player.position)
                 {
-                    GameObject _ammo = Instantiate(_Player_Shoot.CurrentWeapon.Ammo, _hit.collider.transform.position, Quaternion.identity);
+                    GameObject _ammo = Instantiate(_Player_Weapon.CurrentWeapon.Ammo, _hit.collider.transform.position, Quaternion.identity);
                     _Ammo_On_Scene.AddAmmo(_ammo);
-                    _Ammo_On_Scene.NearestAmmo(_Player_Shoot.gameObject);
+                    _Ammo_On_Scene.NearestAmmo(_Player.gameObject);
                     GameEvents.PutAmmo();
                 }
             }

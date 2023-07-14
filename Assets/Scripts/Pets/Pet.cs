@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public abstract class Pet : MonoBehaviour, IUpgradeable
+public abstract class Pet : MonoBehaviour
 {   public string Name { get; private set; }
     public int Level { get; private set; }
     public float Damage { get; private set; }
@@ -52,6 +52,8 @@ public abstract class Pet : MonoBehaviour, IUpgradeable
     {
        
     }
+
+    public int UpgradePrice { get; set; }
 
     public void Upgrade()
     {

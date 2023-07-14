@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Config: {fileID: 11400000, guid: 6149ae1a93a1c514d9542cc885a05705, type: 2}
-  _Bonus_Increase: 1.5
+  _Bonus_Increase: 50
 --- !u!1001 &8809157971267185436
 PrefabInstance:
   m_ObjectHideFlags: 0

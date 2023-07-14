@@ -85,7 +85,7 @@ public class MobAdsRewarded : MonoBehaviour
 
     private void ShowButton()
     {
-        if (_Reward.LevelGrid.LockedTiles.Count > 0)
+        if (_Reward.LevelGrid && _Reward.LevelGrid.LockedTiles.Count > 0)
         {
             int _index = Random.Range(0, _Reward.LevelGrid.LockedTiles.Count);
             float _offset = 1;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public abstract class Monster : MonoBehaviour
+public abstract class Monster : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _Max_Health;
     [SerializeField] private float _Regeneration_Speed;
@@ -23,6 +23,9 @@ public abstract class Monster : MonoBehaviour
     private void Awake()
     {
         GameEvents._Start_Level += DestroyMonster;
+        GameEvents._Monster_Death += DestroyMonster;
+        GameEvents._Monster_Death += Reward;
+        
         CurrentHealth = _Max_Health;
     }
 
@@ -53,22 +56,24 @@ public abstract class Monster : MonoBehaviour
     {
         PlayerData.RecieveCoins(_Money_Reward);
         PlayerData.RecieveGems(3);
+        
         _Game_UI.CurrentCoins();
         _Game_UI.CurrentGems();
     }
 
     public void ApplyDamage(float _damage)
     {
-        if (CurrentHealth - _damage > 0)
-        {
-            CurrentHealth -= _damage;
-            if(!_Is_Regenerating)
-                StartCoroutine(HealthRegeneration());
-        }
-        else
+        if (CurrentHealth <= _damage)
         {
             Death();
+            return;
         }
+        
+        if(!_Is_Regenerating)
+            StartCoroutine(HealthRegeneration());
+        
+        CurrentHealth -= _damage;
+        _Game_UI.CurrentHealth(_Max_Health, CurrentHealth);
     }
 
     private void DestroyMonster()
@@ -79,14 +84,14 @@ public abstract class Monster : MonoBehaviour
     private void Death()
     {
         CurrentHealth = 0;
-        _Game_UI.CurrentHealth(_Max_Health,0);
+        _Game_UI.CurrentHealth(_Max_Health,CurrentHealth);
         GameEvents.MonsterDeath();
-        Destroy(gameObject);
     }
 
     private void OnDestroy()
     {
-        Reward();
+        GameEvents._Monster_Death -= DestroyMonster;
+        GameEvents._Monster_Death -= Reward;
         GameEvents._Start_Level -= DestroyMonster;
     }
 }

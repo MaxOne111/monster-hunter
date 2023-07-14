@@ -58,7 +58,7 @@ public static class PlayerData
 
     public static bool SpendCoins(int _price)
     {
-        if (Coins - _price >= 0)
+        if (Coins >= _price)
         {
             Coins -= _price;
             return true;
@@ -71,7 +71,7 @@ public static class PlayerData
     
     public static bool SpendGems(int _price)
     {
-        if (Gems - _price >= 0)
+        if (Gems >= _price)
         {
             Gems -= _price;
             return true;

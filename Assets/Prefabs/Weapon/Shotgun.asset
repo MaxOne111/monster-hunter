@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb138752c244175439318501c3fd48eb, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  <Ammo>k__BackingField: {fileID: 5700291122006669278, guid: f1abed6c077749348ae8cb8e0aca0470, type: 3}
+  <WeaponLevels>k__BackingField:
+  - {fileID: 11400000, guid: a6c0e68eac65fdc4aa334f548e02a525, type: 2}
+  - {fileID: 11400000, guid: 37749d05dfe1d684da5371882278f6ea, type: 2}
+  - {fileID: 11400000, guid: c01d524cedee54c40bfa147498220590, type: 2}
+  - {fileID: 11400000, guid: 1dd15e2622ee41941a50b138d91fffd2, type: 2}
+  - {fileID: 11400000, guid: 87128ae23fec1b74aab144d396bd52ba, type: 2}
+  <BulletPrefab>k__BackingField: {fileID: 869018465420581129, guid: 03f10d480bc760e4ea842e50d6cef208, type: 3}
+  <BulletSpeed>k__BackingField: 12.5
+  <ExplosionEffect>k__BackingField: {fileID: 2610176313174999420, guid: 5f5d357899d198f4d95303a6302d0d42, type: 3}
+  <UpgradePrice>k__BackingField: 75

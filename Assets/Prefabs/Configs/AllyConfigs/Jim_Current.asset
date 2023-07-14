@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef465aa80e4b964da471fcde1434bea, type: 3}
+  m_Name: Jim_Current
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Nephew Jim
+  <Icon>k__BackingField: {fileID: 1592948262, guid: 7c80e24c18fae4348914da5d62abb8a9, type: 3}
+  <Level>k__BackingField: 4
+  <Damage>k__BackingField: 10
+  <FireRate>k__BackingField: 0.3
+  <UpgradePrice>k__BackingField: 25
+  <PurchasePrice>k__BackingField: 150

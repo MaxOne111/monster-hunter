@@ -18,7 +18,7 @@ public class GameLevels : MonoBehaviour
         _Game_UI = _ui;
     }
 
-    private void Awake()
+    private void Start()
     {
         LoadStartLevel();
     }
